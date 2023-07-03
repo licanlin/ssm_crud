@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.crud.dao.EmpSalaryMapper">
+
+    <resultMap id="SalaryMap" type="EmpSalary">
+        <result column="emp_id" property="employeeId"></result>
+    </resultMap>
+    <insert id="insertOne" parameterType="Employee">
+        insert into emp_salary (id, emp_id, year, month, wages_job, allowance, tax, award, fine, real_wages)
+        values (null,#{empSalary.employeeId},#{empSalary.year},
+                #{empSalary.month},#{empSalary.wagesJob},
+                #{empSalary.allowance},#{empSalary.tax},
+                #{empSalary.award},#{empSalary.fine}
+                ,#{empSalary.realWages})
+    </insert>
+    <update id="update">
+        update emp_salary
+        <set>
+            <if test="empSalary.employeeId != null">
+                emp_id = #{empSalary.employeeId},
+            </if>
+            <if test="empSalary.year != null">
+                year = #{empSalary.year},
+            </if>
+            <if test="empSalary.month">
+                month = #{empSalary.month},
+            </if>
+            <if test = "empSalary.wagesJob != null">
+                wages_job = #{empSalary.wagesJob},
+            </if>
+            <if test="empSalary.allowance != null">
+                allowance = #{empSalary.allowance},
+            </if>
+            <if test="empSalary.tax != null">
+                tax = #{empSalary.tax},
+            </if>
+            <if test="empSalary.award != null">
+                award = #{empSalary.award},
+            </if>
+            <if test="empSalary.fine != null">
+                fine = #{empSalary.fine},
+            </if>
+            <if test="empSalary.realWages != null">
+                real_wages = #{empSalary.realWages}
+            </if>
+        </set>
+        where id = #{empSalary.id}
+    </update>
+    <delete id="deleteById">
+        delete from emp_salary
+        where id = #{id}
+    </delete>
+
+    <select id="GetSalaryList" resultType="EmpSalary">
+        select * from emp_salary;
+    </select>
+</mapper>
